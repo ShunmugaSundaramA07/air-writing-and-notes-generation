@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Writing Recognition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- MediaPipe Hands & Camera Utils -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="app-container">
+        <header class="glass-panel">
+            <h1>Air Writing <span>AI</span></h1>
+            <p>Write in the air using your index finger. Pause to recognize.</p>
+        </header>
+
+        <main>
+            <div class="video-container glass-panel">
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Initializing Camera & AI...</p>
+                </div>
+                <video id="video-feed" class="input_video" autoplay playsinline></video>
+                <canvas id="output-canvas" class="output_canvas"></canvas>
+                
+                <div class="controls-overlay">
+                    <div class="status-indicator">
+                        <span class="dot" id="status-dot"></span>
+                        <span id="status-text">Waiting for hand...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-panel glass-panel">
+                <div class="typing-area">
+                    <div class="typed-text" id="typed-text"></div>
+                    <div class="cursor"></div>
+                </div>
+                
+                <div class="actions">
+                    <button id="btn-space" class="btn primary">Space (␣)</button>
+                    <button id="btn-backspace" class="btn secondary">Backspace (⌫)</button>
+                    <button id="btn-clear" class="btn danger">Clear All</button>
+                </div>
+                
+                <div class="settings">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-debug" checked>
+                        <span class="slider"></span>
+                        <span class="label-text">Show Landmarks</span>
+                    </label>
+                    <div class="confidence-meter">
+                        <label>Last Prediction Confidence:</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="confidence-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by MediaPipe & TensorFlow</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

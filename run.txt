@@ -1,0 +1,24 @@
+
+To collect dataset samples:
+
+python scripts\collect_dataset.py
+python scripts\collect_dataset.py --pause 0.5
+
+
+To train the model:
+
+python train_cnn.py --data dataset --out models\airwrite_model.h5
+python train_cnn.py --data dataset --out models\airwrite_model.h5 --epochs 50 --batch_size 32
+python train_cnn.py --data dataset --out models\airwrite_model.h5 --no_augment
+
+
+To recognize (real-time):
+
+python recognize.py --model models\airwrite_model.h5 --labels models\labels.npy
+python recognize.py --model models\airwrite_model.h5 --labels models\labels.npy --pause 0.5 --confidence 0.6
+
+
+To recognize + save to database:
+
+python scripts\recognize.py --model models\airwrite_model.h5 --labels models\labels.npy --save_db airwrite.db
+
