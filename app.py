@@ -1,3 +1,4 @@
+#this is the main file for this program
 import os
 import sys
 import numpy as np
